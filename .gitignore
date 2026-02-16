@@ -23,6 +23,9 @@ wheels/
 .installed.cfg
 *.egg
 
+# Backup
+*_backup.py
+
 # MediaMTX
 mediamtx/
 !mediamtx/.gitkeep
