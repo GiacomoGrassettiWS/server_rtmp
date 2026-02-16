@@ -51,5 +51,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=None,  # Aggiungi un .ico se vuoi un'icona personalizzata
+    icon='assets/icon.ico'
 )
