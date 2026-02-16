@@ -28,6 +28,9 @@ mediamtx/
 !mediamtx/.gitkeep
 mediamtx.zip
 
+# Ngrok
+ngrok_config.json
+
 # Logs
 *.log
 

@@ -7,6 +7,8 @@ Server RTMP con interfaccia grafica per Windows, ottimizzato per l'uso con OBS S
 - ✅ **Interfaccia Grafica Intuitiva** - Controlli semplici per avviare/fermare il server
 - ✅ **Download Automatico** - MediaMTX viene scaricato automaticamente al primo avvio
 - ✅ **Compatibile con OBS** - Configurazione plug-and-play
+- ✅ **Accesso Remoto ngrok** - Streaming da Internet con un click
+- ✅ **Accesso LAN** - IP locale automatico per rete WiFi
 - ✅ **Web Player Integrato** - Visualizza lo stream nel browser (HLS)
 - ✅ **Log in Tempo Reale** - Monitora lo stato del server
 - ✅ **Configurazione Flessibile** - Personalizza porte e impostazioni
@@ -61,6 +63,85 @@ Al primo avvio, l'applicazione scaricherà automaticamente MediaMTX (~10MB).
 
 - **Da Browser**: Clicca su "🌐 Apri Player Web" nell'interfaccia
 - **URL HLS**: `http://localhost:8888/live/stream`
+
+## 🌍 Accesso Remoto con ngrok
+
+Il server include integrazione **ngrok** per rendere il **web player HLS** accessibile da Internet!
+
+### A Cosa Serve
+
+Con ngrok puoi **condividere lo stream** con chiunque nel mondo tramite un link web. Perfetto per:
+- 📺 Far vedere lo stream a persone remote
+- 🎬 Preview di produzioni in tempo reale
+- 🌐 Visualizzazione da smartphone/tablet ovunque
+- 👥 Condivisione con team distribuiti
+
+**Nota:** ngrok in questa configurazione è per il **web player** (visualizzazione), non per lo streaming da OBS remoto.
+
+### Setup Iniziale ngrok
+
+1. **Registrati su ngrok** (gratuito):
+   - Vai su [https://ngrok.com](https://ngrok.com)
+   - Crea un account gratuito
+   - Copia il tuo **authtoken** dalla dashboard
+
+2. **Configura l'authtoken**:
+   - Nell'interfaccia, sezione "🌍 Accesso Remoto (ngrok)"
+   - Incolla l'authtoken nel campo dedicato
+   - Clicca **"💾 Salva Token"**
+
+### Attivare il Tunnel Pubblico
+
+1. Avvia il server RTMP normalmente
+2. Inizia lo streaming con OBS (locale)
+3. Nella sezione "🌍 Accesso Remoto", clicca **"🚀 Attiva Tunnel"**
+4. Dopo pochi secondi vedrai l'**URL Pubblico** (es. `https://abc123.ngrok.io/live/stream`)
+5. Condividi questo URL con chiunque voglia vedere lo stream!
+
+### Utilizzare l'URL Pubblico
+
+**Chiunque, ovunque nel mondo**, può:
+1. Aprire il link in qualsiasi browser (Chrome, Firefox, Safari, Edge)
+2. Vedere lo streaming live in tempo reale
+3. Funziona su PC, smartphone, tablet
+
+**Esempio URL:**
+```
+https://abc123.ngrok.io/live/stream
+```
+
+### Streaming Locale + Visualizzazione Remota
+
+**Scenario tipico:**
+1. Tu (a casa): Fai streaming con OBS → server locale
+2. Attivi tunnel ngrok
+3. Amici/colleghi (ovunque): Guardano via browser con il link ngrok
+
+### Accesso da Rete Locale (LAN)
+
+L'interfaccia mostra anche l'**IP Locale** per accedere da altri dispositivi sulla stessa rete WiFi:
+
+- **URL LAN**: Visibile nella sezione "Informazioni Connessione"
+- **Formato**: `rtmp://192.168.1.XXX:1935/live`
+- **Uso**: Da altri PC/smartphone nella stessa rete
+
+### Note su ngrok
+
+- ✅ **Gratis**: Piano free funziona perfettamente per il web player
+- ✅ **Sicuro**: Tunnel HTTPS crittografato
+- ✅ **Facile**: Nessuna configurazione router necessaria
+- ⚠️ **URL cambia**: L'URL pubblico cambia ad ogni riavvio del tunnel (con piano free)
+- 💡 **Piano Pro**: URL fissi e più features disponibili
+
+### Streaming da Remoto con OBS
+
+Se invece vuoi fare **streaming da OBS remoto** (non solo visualizzazione), hai due opzioni:
+
+1. **Port Forwarding sul router** (configurazione manuale)
+2. **VPN** tra i PC
+3. **Servizi cloud dedicati** (AWS, Azure, etc.)
+
+Il tunnel ngrok HTTP è ottimizzato per la visualizzazione web, non per lo streaming RTMP bidirezionale.
 
 ## 🔧 Configurazione Avanzata
 

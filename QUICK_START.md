@@ -35,6 +35,24 @@ Clicca **"🌐 Apri Player Web"** nell'interfaccia oppure apri:
 http://localhost:8888/live/stream
 ```
 
+## 🌍 Condividi Stream su Internet (Opzionale)
+
+Per far vedere lo stream a persone remote via web:
+
+1. **Registrati su [ngrok.com](https://ngrok.com)** (gratis)
+2. Copia il tuo **authtoken**
+3. Nell'interfaccia, sezione "🌍 Accesso Remoto":
+   - Incolla l'authtoken e clicca **"💾 Salva Token"**
+   - Clicca **"🚀 Attiva Tunnel"**
+4. Condividi l'**URL pubblico** con chiunque (es. `https://abc.ngrok.io/live/stream`)
+5. Possono guardare lo stream da qualsiasi browser!
+
+**Nota:** Questo è per far vedere lo stream ad altri, non per fare streaming remoto con OBS.
+
+## 📱 Accesso da Rete Locale (WiFi)
+
+L'interfaccia mostra automaticamente l'**IP Locale**. Usalo per connetterti da altri dispositivi sulla stessa rete WiFi.
+
 ## ❓ Problemi?
 
 Leggi il file **README.md** per la guida completa.
