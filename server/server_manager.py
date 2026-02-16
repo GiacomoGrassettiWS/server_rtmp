@@ -32,7 +32,7 @@ class ServerManager:
         
         def download_thread():
             try:
-                url = "https://github.com/bluenviron/mediamtx/releases/latest/download/mediamtx_v2_windows_amd64.zip"
+                url = "https://github.com/bluenviron/mediamtx/releases/download/v1.16.1/mediamtx_v1.16.1_windows_amd64.zip"
                 
                 self.log(f"Scaricamento da: {url}")
                 response = requests.get(url, stream=True)

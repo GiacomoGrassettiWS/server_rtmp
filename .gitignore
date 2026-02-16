@@ -23,6 +23,11 @@ wheels/
 .installed.cfg
 *.egg
 
+# PyInstaller
+build/
+dist/
+*.manifest
+
 # Backup
 *_backup.py
 
