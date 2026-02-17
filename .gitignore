@@ -56,3 +56,6 @@ desktop.ini
 
 # Recordings (se abilitati)
 recordings/
+
+# Docs
+BUILD_RELEASE.md
