@@ -150,4 +150,4 @@ Progetto open-source per uso personale ed educativo.
 
 **Sviluppato con ❤️ per la community OBS**
 
-[⭐ Lascia una stella](https://github.com/TUO_USERNAME/server_rtmp) se ti è utile!
+[⭐ Lascia una stella](https://github.com/GiacomoGrassettiWS/server_rtmp) se ti è utile!
