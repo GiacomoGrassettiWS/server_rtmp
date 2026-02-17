@@ -134,7 +134,7 @@ L'app è per uso locale. ngrok serve solo per far vedere lo stream agli altri vi
 
 ## 🐛 Segnalazione Bug
 
-Hai trovato un problema? [Apri un Issue](https://github.com/TUO_USERNAME/server_rtmp/issues)
+Hai trovato un problema? [Apri un Issue](https://github.com/GiacomoGrassettiWS/server_rtmp/issues)
 
 ## 📝 Licenza
 
