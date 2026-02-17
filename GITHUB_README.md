@@ -6,7 +6,7 @@
 
 ### Windows (64-bit)
 
-**[⬇️ Scarica RTMPServer.exe](https://github.com/TUO_USERNAME/server_rtmp/releases/latest/download/RTMPServer.exe)** (~35 MB)
+**[⬇️ Scarica RTMPServer.exe](https://github.com/GiacomoGrassettiWS/server_rtmp/releases)** (~35 MB)
 
 1. Scarica il file
 2. Fai doppio click
