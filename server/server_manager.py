@@ -7,18 +7,29 @@ import threading
 from pathlib import Path
 import requests
 import zipfile
+from server.config_manager import ConfigManager
+
+
+def get_base_path():
+    """Returns the base path for resources, compatible with PyInstaller."""
+    if getattr(sys, 'frozen', False):
+        return Path(sys.executable).parent
+    return Path.cwd()
 
 
 class ServerManager:
-    def __init__(self, log_callback=None):
-        self.mediamtx_path = Path("mediamtx/mediamtx.exe")
-        self.config_path = Path("mediamtx/mediamtx.yml")
+    def __init__(self, config_manager=None, log_callback=None):
+        base = get_base_path()
+        self.mediamtx_path = base / "mediamtx" / "mediamtx.exe"
+        self.config_path = base / "mediamtx" / "mediamtx.yml"
         self.server_process = None
         self.is_running = False
         self.log_callback = log_callback
+        self.config_manager = config_manager or ConfigManager()
         
     def log(self, message):
-        """Invia messaggio al callback di log"""
+        """Invia messaggio al logger e al callback della GUI"""
+        print(message)
         if self.log_callback:
             self.log_callback(message)
     
@@ -82,7 +93,7 @@ hlsAddress: :{hls_port}
 hls: yes
 hlsAlwaysRemux: yes
 
-# Percorsi (paths) - senza autenticazione
+# Percorsi (paths)
 paths:
   all:
 """

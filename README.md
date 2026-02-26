@@ -1,280 +1,212 @@
-# 🎥 Server RTMP per OBS - Interfaccia Grafica
+<div align="center">
 
-Server RTMP con interfaccia grafica per Windows, ottimizzato per l'uso con OBS Studio.
+# 📡 RTMP Streaming Server
 
-## ✨ Caratteristiche
+**A self-hosted RTMP streaming server with web player, NDI output, and remote access via Ngrok.**
 
-- ✅ **Interfaccia Grafica Intuitiva** - Controlli semplici per avviare/fermare il server
-- ✅ **Download Automatico** - MediaMTX viene scaricato automaticamente al primo avvio
-- ✅ **Compatibile con OBS** - Configurazione plug-and-play
-- ✅ **Accesso Remoto ngrok** - Streaming da Internet con un click
-- ✅ **Accesso LAN** - IP locale automatico per rete WiFi
-- ✅ **Web Player Integrato** - Visualizza lo stream nel browser (HLS)
-- ✅ **Log in Tempo Reale** - Monitora lo stato del server
-- ✅ **Configurazione Flessibile** - Personalizza porte e impostazioni
+Built on [MediaMTX](https://github.com/bluenviron/mediamtx) with a modern dark-themed control panel.
 
-## 📋 Requisiti
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Platform](https://img.shields.io/badge/Platform-Windows-0078D6?logo=windows)
 
-- **Windows 10/11**
-- **Python 3.8 o superiore**
-- **OBS Studio** (per lo streaming)
+</div>
 
-## 🚀 Installazione
+---
 
-### 1. Clona o scarica il progetto
+## ✨ Features
+
+| Feature | Description |
+|---|---|
+| **🎬 RTMP Ingest** | Receive streams from OBS Studio, Streamlabs, or any RTMP encoder |
+| **🌐 HLS Web Player** | Built-in HTTP player for browser-based viewing |
+| **📡 NDI Output** | Stream to NDI-compatible software (OBS, vMix, TriCaster) on your local network |
+| **🔗 Ngrok Tunnels** | Share your stream publicly with a single click |
+| **🎛️ Modern GUI** | Premium dark-themed control panel built with CustomTkinter |
+| **⚙️ Headless Mode** | Run as a background service for production deployments |
+| **📋 YAML Config** | All settings persist in a single `config.yaml` file |
+| **📝 Rotating Logs** | Automatic log rotation (5 files × 5 MB) in `logs/` |
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- **Python 3.10+** installed and in PATH
+- **OBS Studio** (or any RTMP encoder) to send a stream
+
+### Installation
 
 ```bash
-cd c:\Users\giaco\Documents\A_LAVORO\Mediatech\server_rtmp
-```
+# Clone the repository
+git clone https://github.com/yourusername/server_rtmp.git
+cd server_rtmp
 
-### 2. Installa le dipendenze Python
-
-```bash
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-### 3. Avvia l'applicazione
+### Run the GUI
 
 ```bash
 python rtmp_server_gui.py
 ```
 
-Al primo avvio, l'applicazione scaricherà automaticamente MediaMTX (~10MB).
+On first launch, the app will automatically download **MediaMTX**. Then:
 
-## 🎮 Come Usare
-
-### Avviare il Server
-
-1. Apri `rtmp_server_gui.py`
-2. Clicca su **"▶ Avvia Server"**
-3. Il server sarà attivo sulla porta 1935 (RTMP) e 8888 (HLS)
-
-### Configurare OBS
-
-1. Apri **OBS Studio**
-2. Vai su **Settings → Stream**
-3. Seleziona **Custom**
-4. Inserisci:
+1. Click **▶ Start Server**
+2. In **OBS Studio**, set:
    - **Server**: `rtmp://localhost:1935/live`
-   - **Stream Key**: `stream` (o quello che hai configurato)
-5. Clicca **OK** e poi **Start Streaming**
+   - **Stream Key**: `stream`
+3. Start streaming from OBS — done! 🎉
 
-### Visualizzare lo Stream
+### Run Headless (Production)
 
-- **Da Browser**: Clicca su "🌐 Apri Player Web" nell'interfaccia
-- **URL HLS**: `http://localhost:8888/live/stream`
-
-## 🌍 Accesso Remoto con ngrok
-
-Il server include integrazione **ngrok** per rendere il **web player HLS** accessibile da Internet!
-
-### A Cosa Serve
-
-Con ngrok puoi **condividere lo stream** con chiunque nel mondo tramite un link web. Perfetto per:
-- 📺 Far vedere lo stream a persone remote
-- 🎬 Preview di produzioni in tempo reale
-- 🌐 Visualizzazione da smartphone/tablet ovunque
-- 👥 Condivisione con team distribuiti
-
-**Nota:** ngrok in questa configurazione è per il **web player** (visualizzazione), non per lo streaming da OBS remoto.
-
-### Setup Iniziale ngrok
-
-1. **Registrati su ngrok** (gratuito):
-   - Vai su [https://ngrok.com](https://ngrok.com)
-   - Crea un account gratuito
-   - Copia il tuo **authtoken** dalla dashboard
-
-2. **Configura l'authtoken**:
-   - Nell'interfaccia, sezione "🌍 Accesso Remoto (ngrok)"
-   - Incolla l'authtoken nel campo dedicato
-   - Clicca **"💾 Salva Token"**
-
-### Attivare il Tunnel Pubblico
-
-1. Avvia il server RTMP normalmente
-2. Inizia lo streaming con OBS (locale)
-3. Nella sezione "🌍 Accesso Remoto", clicca **"🚀 Attiva Tunnel"**
-4. Dopo pochi secondi vedrai l'**URL Pubblico** (es. `https://abc123.ngrok.io/live/stream`)
-5. Condividi questo URL con chiunque voglia vedere lo stream!
-
-### Utilizzare l'URL Pubblico
-
-**Chiunque, ovunque nel mondo**, può:
-1. Aprire il link in qualsiasi browser (Chrome, Firefox, Safari, Edge)
-2. Vedere lo streaming live in tempo reale
-3. Funziona su PC, smartphone, tablet
-
-**Esempio URL:**
-```
-https://abc123.ngrok.io/live/stream
+```bash
+python rtmp_server_headless.py
 ```
 
-### Streaming Locale + Visualizzazione Remota
-
-**Scenario tipico:**
-1. Tu (a casa): Fai streaming con OBS → server locale
-2. Attivi tunnel ngrok
-3. Amici/colleghi (ovunque): Guardano via browser con il link ngrok
-
-### Accesso da Rete Locale (LAN)
-
-L'interfaccia mostra anche l'**IP Locale** per accedere da altri dispositivi sulla stessa rete WiFi:
-
-- **URL LAN**: Visibile nella sezione "Informazioni Connessione"
-- **Formato**: `rtmp://192.168.1.XXX:1935/live`
-- **Uso**: Da altri PC/smartphone nella stessa rete
-
-### Note su ngrok
-
-- ✅ **Gratis**: Piano free funziona perfettamente per il web player
-- ✅ **Sicuro**: Tunnel HTTPS crittografato
-- ✅ **Facile**: Nessuna configurazione router necessaria
-- ⚠️ **URL cambia**: L'URL pubblico cambia ad ogni riavvio del tunnel (con piano free)
-- 💡 **Piano Pro**: URL fissi e più features disponibili
-
-### Streaming da Remoto con OBS
-
-Se invece vuoi fare **streaming da OBS remoto** (non solo visualizzazione), hai due opzioni:
-
-1. **Port Forwarding sul router** (configurazione manuale)
-2. **VPN** tra i PC
-3. **Servizi cloud dedicati** (AWS, Azure, etc.)
-
-Il tunnel ngrok HTTP è ottimizzato per la visualizzazione web, non per lo streaming RTMP bidirezionale.
-
-## 🔧 Configurazione Avanzata
-
-### Modificare le Porte
-
-Nell'interfaccia puoi modificare:
-- **Porta RTMP**: Default 1935
-- **Porta HLS**: Default 8888
-
-### Personalizzare Stream Key
-
-Cambia lo **Stream Key** nell'interfaccia per avere URL diversi:
-- Stream Key `mystream` → `rtmp://localhost:1935/live/mystream`
-
-### Configurazione Manuale
-
-Puoi modificare manualmente il file `mediamtx/mediamtx.yml` per opzioni avanzate:
-
-```yaml
-# Esempio: Aggiungere autenticazione
-paths:
-  private:
-    publishUser: admin
-    publishPass: secret123
-```
-
-## 📡 Come Funziona
-
-L'applicazione utilizza:
-
-1. **MediaMTX** - Server RTMP/HLS open-source e performante
-2. **Python + Tkinter** - Interfaccia grafica cross-platform
-3. **Subprocess** - Gestione del processo MediaMTX
-
-### Flusso dello Streaming
-
-```
-OBS Studio → RTMP Server → HLS/RTMP Output
-                ↓
-         Web Browser/Player
-```
-
-## 🛠️ Risoluzione Problemi
-
-### Il server non si avvia
-
-- Verifica che la porta 1935 non sia già in uso
-- Controlla i log nell'interfaccia
-- Assicurati che il firewall non blocchi l'applicazione
-
-### MediaMTX non si scarica
-
-Scaricalo manualmente da:
-https://github.com/bluenviron/mediamtx/releases
-
-Estrai l'archivio nella cartella `mediamtx/` del progetto.
-
-### OBS non si connette
-
-- Verifica che il server sia avviato
-- Controlla che l'URL sia corretto: `rtmp://localhost:1935/live`
-- Usa l'IP locale invece di `localhost` se necessario (es. `rtmp://192.168.1.100:1935/live`)
-
-### Lo stream non si vede nel browser
-
-- Attendi qualche secondo dopo aver avviato lo streaming su OBS
-- Ricarica la pagina del browser
-- Verifica che la porta HLS (8888) non sia bloccata
-
-## 📁 Struttura del Progetto
-
-```
-server_rtmp/
-├── rtmp_server_gui.py      # Script principale
-├── requirements.txt         # Dipendenze Python
-├── mediamtx.yml.example    # Configurazione di esempio
-├── mediamtx/               # MediaMTX (scaricato automaticamente)
-│   ├── mediamtx.exe
-│   └── mediamtx.yml
-└── README.md               # Questo file
-```
-
-## 🌐 Streaming da Rete Locale
-
-Per permettere ad altri dispositivi di connettersi:
-
-1. Trova il tuo IP locale:
-   ```bash
-   ipconfig
-   ```
-   Cerca "IPv4 Address" (es. `192.168.1.100`)
-
-2. Usa questo URL in OBS su altri PC:
-   ```
-   rtmp://192.168.1.100:1935/live
-   ```
-
-3. **Importante**: Configura il firewall di Windows per permettere le connessioni sulla porta 1935.
-
-## 📚 Risorse Utili
-
-- [OBS Studio](https://obsproject.com/)
-- [MediaMTX GitHub](https://github.com/bluenviron/mediamtx)
-- [RTMP Specification](https://en.wikipedia.org/wiki/Real-Time_Messaging_Protocol)
-
-## ⚙️ Opzioni Avanzate
-
-### Registrare lo Stream
-
-MediaMTX può registrare automaticamente gli stream. Modifica `mediamtx.yml`:
-
-```yaml
-paths:
-  all:
-    record: yes
-    recordPath: ./recordings/%path/%Y-%m-%d_%H-%M-%S-%f
-```
-
-### Streaming su YouTube/Twitch
-
-Per ritrasmettere su altri servizi, puoi configurare OBS per inviare a entrambi i server o usare MediaMTX come proxy.
-
-## 📝 Licenza
-
-Questo progetto è fornito "as-is" per uso personale ed educativo.
-
-## 🤝 Supporto
-
-Per problemi o domande, consulta:
-- Log del server nell'interfaccia
-- Documentazione di MediaMTX
-- Issues su GitHub di MediaMTX
+Press `Ctrl+C` to stop gracefully. See [Production Deployment](#-production-deployment) below.
 
 ---
 
-**Buon streaming! 🎬**
+## 🖥️ GUI Overview
+
+The control panel provides real-time management of all server components:
+
+- **Server Controls** — Start/stop RTMP server, configure ports and stream key
+- **Ngrok Integration** — Enable remote access with your auth token
+- **NDI Toggle** — Enable/disable NDI output with a single switch
+- **Live Console** — Real-time log output with clear button
+
+---
+
+## 📡 NDI Output
+
+NDI streaming is handled natively in Python using **cyndilib** (NDI SDK wrapper) and **PyAV** (FFmpeg bindings). No external binaries required.
+
+### How It Works
+1. MediaMTX receives the RTMP stream
+2. PyAV connects to the local RTSP mirror (`rtsp://localhost:8554/live/stream`)
+3. Frames are decoded and sent as an NDI source via cyndilib
+
+### Viewing NDI
+On any computer on the same network:
+- Install free **[NDI Tools](https://ndi.video/tools/)**
+- Open **NDI Studio Monitor** — the source will appear automatically
+- Or use **OBS** with the **obs-ndi** plugin
+
+---
+
+## 🔗 Remote Access (Ngrok)
+
+Share your stream publicly without port forwarding:
+
+1. Create a free account at [ngrok.com](https://ngrok.com)
+2. Copy your auth token
+3. Paste it in the GUI and click **Save Token**
+4. Click **Start Tunnel** — you'll get a public URL for your stream
+
+---
+
+## 📦 Building a Standalone Executable
+
+Create a portable `.exe` that doesn't require Python:
+
+```bash
+# Using the included build script
+build_exe.bat
+
+# Or manually
+python -m PyInstaller --clean rtmp_server.spec
+```
+
+The executable will be created at `dist/RTMPServer.exe`.
+
+> **Note:** Copy the `mediamtx/` folder next to the `.exe` before running it.
+
+---
+
+## 🏭 Production Deployment
+
+For running the server as a Windows Service (auto-start on boot):
+
+1. Download **[NSSM](https://nssm.cc/download)** (Non-Sucking Service Manager)
+2. Run as Administrator:
+   ```cmd
+   nssm.exe install RTMPServer
+   ```
+3. Configure the service:
+   - **Path**: Your Python executable (e.g., `C:\Python312\python.exe`)
+   - **Arguments**: `rtmp_server_headless.py`
+   - **Startup directory**: Your project folder
+   - **Startup type**: Automatic
+4. Start the service:
+   ```cmd
+   nssm.exe start RTMPServer
+   ```
+
+---
+
+## 📁 Project Structure
+
+```
+server_rtmp/
+├── rtmp_server_gui.py        # Main GUI application
+├── rtmp_server_headless.py   # Headless/service mode
+├── config.yaml               # Persistent configuration
+├── requirements.txt          # Python dependencies
+├── build_exe.bat             # EXE build script
+├── rtmp_server.spec          # PyInstaller configuration
+├── server/
+│   ├── server_manager.py     # MediaMTX process management
+│   ├── ngrok_manager.py      # Ngrok tunnel management
+│   ├── ndi_manager.py        # NDI output (cyndilib + PyAV)
+│   ├── config_manager.py     # YAML config read/write
+│   └── logger.py             # Rotating file logger
+├── utils/
+│   └── helpers.py            # Network utilities
+├── assets/
+│   └── icon.ico              # Application icon
+└── mediamtx/                 # MediaMTX binary (auto-downloaded)
+```
+
+---
+
+## ⚙️ Configuration
+
+All settings are stored in `config.yaml`:
+
+```yaml
+server:
+  rtmp_port: 1935
+  hls_port: 8888
+  stream_key: stream
+ngrok:
+  auth_token: ""
+  enabled: false
+ndi:
+  enabled: false
+  name: RTMP Server
+```
+
+---
+
+## 📋 Requirements
+
+| Package | Purpose |
+|---|---|
+| `customtkinter` | Modern themed GUI |
+| `pyyaml` | Configuration management |
+| `pyngrok` | Ngrok tunnel integration |
+| `requests` | HTTP downloads |
+| `av` (PyAV) | Video stream decoding |
+| `cyndilib` | NDI SDK Python wrapper |
+| `numpy` | Frame data handling |
+| `pyinstaller` | Executable packaging |
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.

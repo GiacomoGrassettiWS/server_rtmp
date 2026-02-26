@@ -3,6 +3,8 @@ Gestione tunnel ngrok per accesso remoto web player
 """
 import json
 from pathlib import Path
+from server.config_manager import ConfigManager
+from server.logger import log as app_log
 
 try:
     from pyngrok import ngrok
@@ -12,14 +14,15 @@ except ImportError:
 
 
 class NgrokManager:
-    def __init__(self, log_callback=None):
+    def __init__(self, config_manager=None, log_callback=None):
         self.tunnel = None
         self.is_running = False
         self.log_callback = log_callback
-        self.config_file = Path("ngrok_config.json")
+        self.config_manager = config_manager or ConfigManager()
         
     def log(self, message):
-        """Invia messaggio al callback di log"""
+        """Invia messaggio al callback di log principale e console"""
+        app_log.info(message)
         if self.log_callback:
             self.log_callback(message)
     
@@ -29,13 +32,7 @@ class NgrokManager:
     
     def load_token(self):
         """Carica l'authtoken salvato"""
-        try:
-            if self.config_file.exists():
-                config = json.loads(self.config_file.read_text())
-                return config.get("authtoken", "")
-        except Exception as e:
-            self.log(f"⚠️ Impossibile caricare config ngrok: {e}")
-        return ""
+        return self.config_manager.get("ngrok", "auth_token") or ""
     
     def save_token(self, token):
         """Salva l'authtoken"""
@@ -44,11 +41,11 @@ class NgrokManager:
         
         try:
             ngrok.set_auth_token(token)
-            config = {"authtoken": token}
-            self.config_file.write_text(json.dumps(config, indent=2))
-            self.log("✅ Authtoken ngrok salvato")
+            self.config_manager.set("ngrok", "auth_token", token)
+            self.log("✅ Authtoken ngrok salvato in config.yaml")
             return True, "Authtoken salvato correttamente!"
         except Exception as e:
+            app_log.error(f"Errore salvataggio ngrok token: {e}")
             self.log(f"❌ Errore nel salvataggio: {e}")
             return False, f"Impossibile salvare authtoken: {e}"
     

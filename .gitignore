@@ -6,11 +6,9 @@ __pycache__/
 .Python
 env/
 venv/
+.venv/
 ENV/
-build/
 develop-eggs/
-dist/
-downloads/
 eggs/
 .eggs/
 lib/
@@ -31,15 +29,20 @@ dist/
 # Backup
 *_backup.py
 
-# MediaMTX
+# MediaMTX (auto-downloaded at runtime)
 mediamtx/
 !mediamtx/.gitkeep
 mediamtx.zip
 
-# Ngrok
+# FFmpeg (legacy, no longer used)
+ffmpeg.zip
+
+# Config (user-specific)
+config.yaml
 ngrok_config.json
 
 # Logs
+logs/
 *.log
 
 # IDE
@@ -54,8 +57,5 @@ ngrok_config.json
 Thumbs.db
 desktop.ini
 
-# Recordings (se abilitati)
+# Recordings
 recordings/
-
-# Docs
-BUILD_RELEASE.md

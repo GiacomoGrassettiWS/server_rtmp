@@ -1,31 +1,22 @@
 @echo off
-title Creazione EXE - RTMP Server
+title Build EXE - RTMP Streaming Server
 echo.
 echo ========================================
-echo  Build EXE - RTMP Server per OBS
+echo  RTMP Streaming Server - Build EXE
 echo ========================================
 echo.
 
-REM Verifica ambiente
-if not exist ".venv" (
-    echo Creazione ambiente virtuale...
-    python -m venv .venv
-)
-
-echo Attivazione ambiente virtuale...
-call .venv\Scripts\activate.bat
-
-echo Installazione dipendenze...
+echo Installing dependencies...
 pip install -q -r requirements.txt
 
 echo.
-echo Pulizia build precedenti...
+echo Cleaning previous builds...
 if exist "build" rmdir /s /q build
 if exist "dist" rmdir /s /q dist
 
 echo.
 echo ========================================
-echo  Creazione EXE con PyInstaller
+echo  Building EXE with PyInstaller...
 echo ========================================
 echo.
 
@@ -33,18 +24,19 @@ python -m PyInstaller --clean rtmp_server.spec
 
 if errorlevel 1 (
     echo.
-    echo ERRORE: Build fallito!
+    echo ERROR: Build failed!
     pause
     exit /b 1
 )
 
 echo.
 echo ========================================
-echo  Build completato con successo!
+echo  Build completed successfully!
 echo ========================================
 echo.
-echo Eseguibile creato in: dist\RTMPServer.exe
+echo Executable created at: dist\RTMPServer.exe
 echo.
-echo Per testare: cd dist e esegui RTMPServer.exe
+echo NOTE: Copy the mediamtx/ folder next to RTMPServer.exe
+echo       before running the application.
 echo.
 pause
